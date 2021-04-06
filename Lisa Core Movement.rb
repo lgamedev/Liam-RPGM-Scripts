@@ -1240,7 +1240,6 @@ class Game_CharacterBase
         currActiveRopeType = $game_party.getExSaveData("lcmCurrentActiveRopeType", LCM::LCM_INITIAL_ACTIVE_ROPE_TYPE)
         # if the ropes passability check fails, set move_succeed to false
         if (checkCharRopesTilePassability(currActiveRopeType, d) == false)
-          puts("ropes passability check failed!!!!")
           @move_succeed = false
         end
       end
@@ -3665,7 +3664,7 @@ class Game_Follower < Game_Character
     # don't try to move again if executing an lcm movement, or already moving
     unless (@lcmStayImmobile || moving?)
       # if the follower poor agility catchup is on, see if the followers
-      # have fallen to far behind the player, and should try to follow the
+      # have fallen too far behind the player, and should try to follow the
       # player instead of the next follower for a little while.
       if (LCM::LCM_FOLLOWER_POOR_AGILITY_CATCHUP == true)
         # check if x distance (absolute value, don't consider direction) from
@@ -4988,7 +4987,6 @@ class Game_Character < Game_CharacterBase
               
               # get the walking graphic and update the flags appropriately
               walkingGraphic = LCM.getlcmDatasetData(@lcmMovementOutfit, :normalWalkingGraphic)
-              
               # set the walking graphic and update the flags appropriately
               set_graphic(walkingGraphic, 0)
               @changeToDashGraphic = true
