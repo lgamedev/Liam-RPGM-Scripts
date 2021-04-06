@@ -36,7 +36,7 @@ Description:
 
 This script is made for showing a "gif" using show picture commands. It does not actually show a real .gif file, it just plays a bunch of static images like a gif. It will take a series of related images to play in quick succession.
 
-**IMAGES/MEDIA:**
+**IMAGES:**
 
 (None right now!)
 
@@ -66,7 +66,7 @@ Description:
 
 This script is made for increasing and decreasing the volume of a repeated sound effect as a player gets closer or further away from the source of the volume, using the map x/y coordinates of the event and player to do so.
 
-**IMAGES/MEDIA:**
+**IMAGES:**
 
 (None right now!)
 
@@ -96,7 +96,7 @@ Description:
 
 This script allows you to have a random message for when a fight begins and ends. You can make a list of messages to use for "emerging" and "victory".
 
-**IMAGES/MEDIA:**
+**IMAGES:**
 
 Here is an example of a "battle start" message.
 
@@ -130,7 +130,7 @@ Description:
 
 This script allows you to play animations once in the center of the screen rather that having it repeat for each target. Before this script, you could set animation's positions to "Screen" to partially solve this problem, however, even if you can't see the animation play multiple times since the animations are overlaid on top of each other, the sounds used in the animation can still be noticably heard playing over each other. This script prevents those animation sounds from playing over each other.
 
-**IMAGES/MEDIA:**
+**IMAGES:**
 
 (None right now!)
 
@@ -164,7 +164,7 @@ Description:
 
 This script allows you to make TP into a system that works similarly to the MP system, and basically allows you to customize the TP system as much as you can customize the MP system. Normally, everything to do with TP assumes that max TP has a hard cap of 100. You cannot make TP skills costs over 100, you cannot make TP gain effects of flat numbers, or make TP-loss effects, and you cannot increase or decrease the set max TP. This script changes all of that. There is a large amount of settings including settings for initial TP at the start of battles, settings for TP preservation, settings for changing TP gained by damage, settings for changing how the TCR (TP Charge Rate) parameter works, and more. Additionally, a new parameter is added using notetags, TPCSTR or TP Cost Rate, which affects how much TP skills cost, similar to its MP cost rate equivalent.
 
-**IMAGES/MEDIA:**
+**IMAGES:**
 
 Here is some actors with nonstandard max TP.
 
@@ -216,7 +216,7 @@ Description:
 
 This script turns the MP system into a guns and ammunition system. This system is meant for use with guns, but can also be used to represent ammo/aiming abilities for other kinds of weapons, like grenade launchers, bows, slingshots, etc. The MP bar represents the ammo count. "Guns" have a name, a type, ammo data, skills that are tied to them, etc. Additionally, there is one new notetagged parameter, GHIT or Gun HITchance, which determines how accurate "magical" (meaning gun-based) attacks are.
 
-**IMAGES/MEDIA:**
+**IMAGES:**
 
 Here is an image that shows how guns display their ammo count in their names.
 
@@ -261,7 +261,7 @@ Description:
 
 This script is made for allowing new skills from the skill database to be added to the 'top-level' menu in battle (the one with, 'attack', 'guard', etc.) for specific actors.
 
-**IMAGES/MEDIA:**
+**IMAGES:**
 
 Here, "Inspect" is a top-level skill added by the script.
 
@@ -350,7 +350,7 @@ Description:
 
 This script applies 'rubberbanding' to experience gain. It lets you set (and may set by itself) an "xp leader" for the rubberbanding to be based off of (which will likely be a main character). XP bonuses are applied to party members who are varying amounts of levels behind the party leader, and the bonuses can be set to scale up as the amount of levels behind the leader increases.
 
-**IMAGES/MEDIA:**
+**IMAGES:**
 
 (None right now!)
 
@@ -517,7 +517,7 @@ Description:
 
 This script allows you to save any kind of data (true/false values, numbers, etc.) across all save files using a generated file stored in a directory/folder you specify. This persistent data can be retrieved and changed in map events. Persistant data is accessed by using particular names you can set. This is useful for updating title screens after certain game milestones/achievements, doing 4th wall breaking things, etc. This script may be used to other scripts or by itself.
 
-**IMAGES/MEDIA:**
+**IMAGES:**
 
 (None right now!)
 
