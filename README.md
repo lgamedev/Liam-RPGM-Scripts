@@ -39,9 +39,11 @@ Current Version:        1.1.1
 </details>
 
 Description:
+
 This script allows you to designate a number for ATS Message Options text box positions settings (like the n in \et[n]) to mark the text box for the show text command's position as relative to the event that contains the show text command. In other words, it serves as a "this event" marker. Additionally, it also lets you set text box positions as relative to followers, not just the player. In addition, it allows you to automatically set unique talking sounds based off of actorID for the player and any followers they have. Lastly, it simplifies the ATS message options talk sound script calls so you can call sound data by name from a list of sounds you define.
 
 **IMAGES/MEDIA:**
+
 Below is a link to Lisa: The Tech Demo which includes this script if you want to see it in action:
 https://gamejolt.com/games/lisathetechdemo/525787
 
