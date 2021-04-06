@@ -9,3 +9,5 @@ If you want to see the script working immediately after copy-pasting the initial
 your script list, then copy paste the contents of the "initial setup graphics" folder into a new folder that you create named
 "achievements" in your game's directory. Upon launching your game, you should then be able to access the fully-functioning
 achievements screen.
+
+The graphics in the "achievement mockups" folder show how the achievements screen is put together along with roughly how it looks.
