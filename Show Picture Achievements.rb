@@ -128,7 +128,7 @@ module SPA
   #   ["BGM name", BGM volume, BGM pitch]
   # Ex.
   #   ACHIEVE_SCREEN_BGM = ["relaxing music", 80, 100]
-  ACHIEVE_SCREEN_BGM = ["bouncer", 100, 100]
+  ACHIEVE_SCREEN_BGM = ["none", 100, 100]
   
   # The filename to use for the achievements screen title image.
   #
@@ -418,7 +418,7 @@ module SPA
   #   ["SE name", SE volume, SE pitch]
   # Ex.
   #   ACHIEVE_PAGE_SWITCH_SE = ["ding", 80, 100]
-  ACHIEVE_PAGE_SWITCH_SE = ["access granted", 60, 120]
+  ACHIEVE_PAGE_SWITCH_SE = ["", 60, 120]
   
   # The font to use for the achievement page indicator text.
   # If you want to use your default font, put "default."
@@ -518,7 +518,7 @@ module SPA
   #   ["SE name", SE volume, SE pitch]
   # Ex.
   #   ACHIEVE_POPUP_SE = ["ding", 80, 100]
-  ACHIEVE_POPUP_SE = ["access granted", 80, 100]
+  ACHIEVE_POPUP_SE = ["", 80, 100]
   #   ---------------------------------
   
   
