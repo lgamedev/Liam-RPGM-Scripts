@@ -13,27 +13,60 @@ https://discord.gg/JgaBenr
 
 # Script List
 
-# ATS Message Options Lisa Addons
+# ATS Message Options Lisa Addon
 **SCRIPT INFO:**
-REQUIRES THE "ATS Message Options" SCRIPT! OBTAIN AT THIS LINK:
 
-https://rmrk.net/index.php?topic=46770.0
+REQUIRES THE "ATS Message Options" SCRIPT! OBTAIN AT THIS LINK: https://rmrk.net/index.php?topic=46770.0
 
-REQUIRES THE "Extra Save Data" SCRIPT! OBTAIN IN #extra-save-data
-
-RPGMaker Ver:           VXAce
+REQUIRES THE "Extra Save Data" SCRIPT!
 
 Current Version:        1.1.1
 
-Usage License:          Noncommercial/Commercial with attribution (Credit me as "Liam")
-                        BUT, note that obviously the original license for the ATS message
-                        options still applies, since this is an add-on that requires the original 
-                        script.
-                        
+<details>
+
+  <summary>Changelog:</summary>
+  
+  v1.0 Changelog:
+  * This is the first version of this script posted here
+
+  v1.1 Changelog:
+  * Added actor-based talking sound capabilities
+  * Simplified the ATS message options talk sound script calls
+
+  v1.1.1 Changelog:
+  * Added discord and github link
+  
+</details>
+
 Description:
 This script allows you to designate a number for ATS Message Options text box positions settings (like the n in \et[n]) to mark the text box for the show text command's position as relative to the event that contains the show text command. In other words, it serves as a "this event" marker. Additionally, it also lets you set text box positions as relative to followers, not just the player. In addition, it allows you to automatically set unique talking sounds based off of actorID for the player and any followers they have. Lastly, it simplifies the ATS message options talk sound script calls so you can call sound data by name from a list of sounds you define.
 
 **IMAGES/MEDIA:**
 Below is a link to Lisa: The Tech Demo which includes this script if you want to see it in action:
 https://gamejolt.com/games/lisathetechdemo/525787
+
+Here you can see the "eventID"in \et\[999\] set to 999 to stand in as the "this event" marker.
+![ATS Message Options Screenshot 1](https://raw.githubusercontent.com/lgamedev/Liam-RPGM-Scripts/main/github%20readme%20graphics/ats%20message%20options%20this%20event%20example.png)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
