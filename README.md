@@ -184,6 +184,8 @@ Here is the notetags added in this script to get an idea of some of the things t
 ## MP to Guns Overhaul
 **SCRIPT INFO:**
 
+REQUIRES THE "Extra Save Data" SCRIPT!
+
 Current Version:        1.1.4
 
 <details>
@@ -231,12 +233,8 @@ Here is some gun skills that go with the "Dinky Pistol" gun.
 
 
 
-## ATS Message Options Lisa Addon
+## Top-Level Skills
 **SCRIPT INFO:**
-
-REQUIRES THE "ATS Message Options" SCRIPT! OBTAIN AT THIS LINK: https://rmrk.net/index.php?topic=46770.0
-
-REQUIRES THE "Extra Save Data" SCRIPT!
 
 Current Version:        1.1.1
 
@@ -247,9 +245,13 @@ Current Version:        1.1.1
   v1.0 Changelog:
   * This is the first version of this script posted here
 
+  v1.0.1 Changelog:
+  * Added an "import section" to the script so other scripts can see if the script is being used
+  * Fixed a bug that causes the game to do a soft hang if you "cancel" a top level skill usage.
+
   v1.1 Changelog:
-  * Added actor-based talking sound capabilities
-  * Simplified the ATS message options talk sound script calls
+  * Fixed a lot of issues where skills with scopes other than "the user" or "one enemy" wouldn't work
+  * Fixed a lot of other critical issues.
 
   v1.1.1 Changelog:
   * Added discord and github link
@@ -258,15 +260,13 @@ Current Version:        1.1.1
 
 Description:
 
-This script allows you to designate a number for ATS Message Options text box positions settings (like the n in \et[n]) to mark the text box for the show text command's position as relative to the event that contains the show text command. In other words, it serves as a "this event" marker. Additionally, it also lets you set text box positions as relative to followers, not just the player. In addition, it allows you to automatically set unique talking sounds based off of actorID for the player and any followers they have. Lastly, it simplifies the ATS message options talk sound script calls so you can call sound data by name from a list of sounds you define.
+This script is made for allowing new skills from the skill database to be added to the 'top-level' menu in battle (the one with, 'attack', 'guard', etc.) for specific actors.
 
 **IMAGES/MEDIA:**
 
-Here is a link to Lisa: The Tech Demo which includes this script if you want to see it in action: https://gamejolt.com/games/lisathetechdemo/525787
+Here, "Inspect" is a top-level skill added by the script.
 
-Here you can see the "eventID"in \et\[999\] set to 999 to stand in as the "this event" marker.
-
-![ATS Message Options Screenshot 1](https://raw.githubusercontent.com/lgamedev/Liam-RPGM-Scripts/main/github%20readme%20graphics/ats%20message%20options%20this%20event%20example.png)
+![Top Level Skills Screenshot 1](https://raw.githubusercontent.com/lgamedev/Liam-RPGM-Scripts/main/github%20readme%20graphics/top%20level%20skills%20example.png)
 
 
 
@@ -297,35 +297,31 @@ This script allows you to set custom attack and defend skills for different acto
 
 
 
-## Auto and Quick Saving
+## Mystery HP
 **SCRIPT INFO:**
-
-Current Version:        1.2.2
+Current Version:        1.0.1
 
 <details>
 
   <summary>Changelog:</summary>
   
-  v1.2 Changelog:
+  v1.0 Changelog:
   * This is the first version of this script posted here
 
-  v1.2.1 Changelog:
-  * Added an "import section" to the script so other scripts can see if the script is being used
-
-  v1.2.2 Changelog:
+  v1.0.1 Changelog:
   * Added discord and github link
   
 </details>
 
 Description:
 
-This script turns the first savefile in the list of savefiles in the game directory into a quicksave/autosave hybrid savefile that can only be accessed in the load menu (and not the normal save menu). Autosaves can be enabled to occur either when a specified switch is turned to true, or on map transition. Quicksaves can be enabled to occur with the press of a specified button. Additionally, the quicksave file can be quickloaded with the press of a different specified button.
+This script allows you to toggle making the hp bar value unknown in and out of battle with a toggleable game switch and with actor states. The MP and TP bar can also be set to be hidden along with HP.
 
-**IMAGES:**
+**IMAGES/MEDIA:**
 
-Here, the slot labeled "Quicksave Slot" is the AQS Savefile.
+This image shows how the mystery HP can be afflicted through a state in battle. Additionally, this has the settings for hiding MP and TP bars on as well.
 
-![Auto and Quicksaving Screenshot 1](https://raw.githubusercontent.com/lgamedev/Liam-RPGM-Scripts/main/github%20readme%20graphics/aqsaves%20quicksave%20slot%20example.png)
+![Mystery HP Screenshot 1](https://raw.githubusercontent.com/lgamedev/Liam-RPGM-Scripts/main/github%20readme%20graphics/top%20level%20skills%20example.png)
 
 
 
@@ -358,6 +354,108 @@ This script applies 'rubberbanding' to experience gain. It lets you set (and may
 **IMAGES/MEDIA:**
 
 (None right now!)
+
+
+
+## Auto and Quick Saving
+**SCRIPT INFO:**
+
+REQUIRES THE "Extra Save Data" SCRIPT!
+
+Current Version:        1.2.2
+
+<details>
+
+  <summary>Changelog:</summary>
+  
+  v1.2 Changelog:
+  * This is the first version of this script posted here
+
+  v1.2.1 Changelog:
+  * Added an "import section" to the script so other scripts can see if the script is being used
+
+  v1.2.2 Changelog:
+  * Added discord and github link
+  
+</details>
+
+Description:
+
+This script turns the first savefile in the list of savefiles in the game directory into a quicksave/autosave hybrid savefile that can only be accessed in the load menu (and not the normal save menu). Autosaves can be enabled to occur either when a specified switch is turned to true, or on map transition. Quicksaves can be enabled to occur with the press of a specified button. Additionally, the quicksave file can be quickloaded with the press of a different specified button.
+
+**IMAGES:**
+
+Here, the slot labeled "Quicksave Slot" is the AQS Savefile.
+
+![Auto and Quicksaving Screenshot 1](https://raw.githubusercontent.com/lgamedev/Liam-RPGM-Scripts/main/github%20readme%20graphics/aqsaves%20quicksave%20slot%20example.png)
+
+
+
+## Max Save Increases
+**SCRIPT INFO:**
+
+Current Version:        1.2
+
+<details>
+
+  <summary>Changelog:</summary>
+  
+  v1.1 Changelog:
+  * This is the first version of this script posted here
+
+  v1.1.1 Changelog:
+  * Added an "import section" to the script so other scripts can see if the script is being used
+
+  v1.2 Changelog:
+  * Removed the requirement of using the "Persistent Data" script
+  * Improved the adaptability of the script (like adapting when save files are deleted from the game directory)
+  * Added discord and github link
+  
+</details>
+
+Description:
+
+This script increases the amount of available save files by one whenever the last save file is saved to by the player.
+
+**IMAGES:**
+
+(None right now!)
+
+
+
+## More Save Display Data (and Difficulty Display)
+**SCRIPT INFO:**
+
+REQUIRES THE "Extra Save Data" SCRIPT!
+
+Current Version:        1.0.2
+
+<details>
+
+  <summary>Changelog:</summary>
+  
+  v1.0 Changelog:
+  * This is the first version of this script posted here
+
+  v1.0.1 Changelog:
+  * Added an "import section" to the script so other scripts can see if the script is being used
+
+  v1.0.2 Changelog:
+  * Added discord and github link
+  
+</details>
+
+Description:
+
+The script provides a framework for adding more data onto savefiles. By default, the data added is game difficulty, although you can add more data by copying versions of the previous methods/variables and editing the names/values. game_party is used to store data because data stored there is stored in save data and can be accessed outside of normal gameplay (since it needs to be used on the title screen).
+
+**This script is difficult to use without prior scripting knowledge**
+
+**IMAGES:**
+
+The "Easy", "Not Easy", and "H.A.R.D." below are different difficulties which display in the form of text on top of savefile windows.
+
+![More Save Display Screenshot 1](https://raw.githubusercontent.com/lgamedev/Liam-RPGM-Scripts/main/github%20readme%20graphics/more%20save%20display%20data%20difficulty%20display.png)
 
 
 
@@ -457,6 +555,54 @@ Here is a screenshot from inside the RPGMaker editor. Note the lack of movement 
 Here is a screenshot from in-game. Note the three followers in the image. Followers are now able to be used when using this script.
 
 ![Lisa Core Movement Screenshot 2](https://raw.githubusercontent.com/lgamedev/Liam-RPGM-Scripts/main/github%20readme%20graphics/lisa%20core%20movement%20followers.png)
+
+
+
+## ATS Message Options Lisa Addon
+**SCRIPT INFO:**
+
+REQUIRES THE "ATS Message Options" SCRIPT! OBTAIN AT THIS LINK: https://rmrk.net/index.php?topic=46770.0
+
+REQUIRES THE "Extra Save Data" SCRIPT!
+
+Current Version:        1.1.1
+
+<details>
+
+  <summary>Changelog:</summary>
+  
+  v1.0 Changelog:
+  * This is the first version of this script posted here
+
+  v1.1 Changelog:
+  * Added actor-based talking sound capabilities
+  * Simplified the ATS message options talk sound script calls
+
+  v1.1.1 Changelog:
+  * Added discord and github link
+  
+</details>
+
+Description:
+
+This script allows you to designate a number for ATS Message Options text box positions settings (like the n in \et[n]) to mark the text box for the show text command's position as relative to the event that contains the show text command. In other words, it serves as a "this event" marker. Additionally, it also lets you set text box positions as relative to followers, not just the player. In addition, it allows you to automatically set unique talking sounds based off of actorID for the player and any followers they have. Lastly, it simplifies the ATS message options talk sound script calls so you can call sound data by name from a list of sounds you define.
+
+**IMAGES/MEDIA:**
+
+Here is a link to Lisa: The Tech Demo which includes this script if you want to see it in action: https://gamejolt.com/games/lisathetechdemo/525787
+
+Here you can see the "eventID"in \et\[999\] set to 999 to stand in as the "this event" marker.
+
+![ATS Message Options Screenshot 1](https://raw.githubusercontent.com/lgamedev/Liam-RPGM-Scripts/main/github%20readme%20graphics/ats%20message%20options%20this%20event%20example.png)
+
+
+
+
+
+
+
+
+
 
 
 
