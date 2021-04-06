@@ -5,7 +5,7 @@ $imported["Liam-MoreSaveDisplay"] = true
 
 # Script:           More Save Display Data (& Difficulty Display)
 # Author:           Liam
-# Version:          1.0.1
+# Version:          1.0.2
 # Description:
 # The script provides a framework for adding more data onto savefiles.
 # By default, the data added is game difficulty, although you can add more
