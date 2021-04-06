@@ -321,7 +321,7 @@ This script allows you to toggle making the hp bar value unknown in and out of b
 
 This image shows how the mystery HP can be afflicted through a state in battle. Additionally, this has the settings for hiding MP and TP bars on as well.
 
-![Mystery HP Screenshot 1](https://raw.githubusercontent.com/lgamedev/Liam-RPGM-Scripts/main/github%20readme%20graphics/top%20level%20skills%20example.png)
+![Mystery HP Screenshot 1](https://raw.githubusercontent.com/lgamedev/Liam-RPGM-Scripts/main/github%20readme%20graphics/mystery%20hp%20state%20in%20battle.png)
 
 
 
@@ -491,10 +491,10 @@ This script allows you to save any kind of data (true/false values, numbers, etc
 
 
 
-## Fake Show Pictures
+## Persistent Data
 **SCRIPT INFO:**
 
-Current Version:        1.0
+Current Version:        1.2
 
 <details>
 
@@ -502,12 +502,21 @@ Current Version:        1.0
   
   v1.0 Changelog:
   * This is the first version of this script posted here
+
+  v1.1.1 Changelog:
+  * Added an "import section" to the script so other scripts can see if the script is being used
+
+  v1.2 Changelog:
+  * Now separates persistent data used by other scripts and persistent data set up by the user
+  * Persistent data used by other scripts is now managed automatically
+  * User-defined persistent data is now easy to set up and use
+  * Added discord and github link
   
 </details>
 
 Description:
 
-This script allows the equivalent of "show picture" commands to be used in more scenes than just on the game map and in battle. It also ensures that images shown using this script do not interfere with any existing visual elements on screen. This script is primarily designed to be utilized by other scripts, and does serve much of a purpose by itself.
+This script allows you to save any kind of data (true/false values, numbers, etc.) across all save files using a generated file stored in a directory/folder you specify. This persistent data can be retrieved and changed in map events. Persistant data is accessed by using particular names you can set. This is useful for updating title screens after certain game milestones/achievements, doing 4th wall breaking things, etc. This script may be used to other scripts or by itself.
 
 **IMAGES/MEDIA:**
 
@@ -517,6 +526,8 @@ This script allows the equivalent of "show picture" commands to be used in more 
 
 ## Lisa Core Movement
 **SCRIPT INFO:**
+
+REQUIRES THE "Extra Save Data" SCRIPT!
 
 Current Version:        1.1.1
 
@@ -597,16 +608,93 @@ Here you can see the "eventID"in \et\[999\] set to 999 to stand in as the "this 
 
 
 
+## Lisa NPC Talk Options
+**SCRIPT INFO:**
+
+Current Version:        1.0.1
+
+<details>
+
+  <summary>Changelog:</summary>
+  
+  v1.0 Changelog:
+  * This is the first version of this script posted here
+
+  v1.0.1 Changelog:
+  * Added discord and github link
+  
+</details>
+
+Description:
+
+This script allows you to let the player talk to NPCs while adjacent to them, so that the player's sprite does not have to be move out of the way unless necessary. For both NPCs that can talk adjacently or not, if the player is directly on top of the NPC they are trying to talk to, then the player can be marked to either move to the left or right to get out of the way before talking to them, and then will face the NPC afterwards. Moving the player out of the way in the desired direction is condensed down to a single script call.
+
+**IMAGES/MEDIA:**
+
+Here is a link to Lisa: The Tech Demo which includes this script if you want to see it in action: https://gamejolt.com/games/lisathetechdemo/525787
+
+In this event you can see that the event is set to "Same as Character" priority and has "through" on, marking them as an NPC that can be talked to adjacently. Also present is the script call playerTalkCollisionResolve(), which moves the player in the desired way (in this case, moving left and turning right) if the player is on top of their event.
+
+![Lisa NPC Talk Options Screenshot 1](https://raw.githubusercontent.com/lgamedev/Liam-RPGM-Scripts/main/github%20readme%20graphics/lisa%20npc%20talk%20options%20example.png)
 
 
 
+## Fake Show Pictures
+**SCRIPT INFO:**
+
+Current Version:        1.0
+
+<details>
+
+  <summary>Changelog:</summary>
+  
+  v1.0 Changelog:
+  * This is the first version of this script posted here
+  
+</details>
+
+Description:
+
+This script allows the equivalent of "show picture" commands to be used in more scenes than just on the game map and in battle. It also ensures that images shown using this script do not interfere with any existing visual elements on screen. This script is primarily designed to be utilized by other scripts, and does serve much of a purpose by itself.
+
+**IMAGES:**
+
+(None right now!)
 
 
 
+## Show Picture Achievements
+**SCRIPT INFO:**
 
+REQUIRES THE "Fake Show Pictures" SCRIPT!
 
+REQUIRES THE "Persistent Data" SCRIPT!
 
+Current Version:        1.0
 
+<details>
 
+  <summary>Changelog:</summary>
+  
+  v1.0 Changelog:
+  * This is the first version of this script posted here
+  
+</details>
+
+Description:
+
+This script allows you to set up a list of achievements and an achievements screen to display all the achievements. The achievements screen's graphics, layout, and the sizes of the objects on the screen can all be modified. There are also optional achievement popups that can pop up when you earn an achievement. Unlocking an achievement is done by using script calls. Achievements are not stored per savefile, but rather in persistent data.
+
+**This script has a default set of graphics that go with it in the "Show Picture Achievements Default Graphics" folder. Credit to "the iceman" for creating the default graphics set.**
+
+**IMAGES:**
+
+Here is a screenshot of the achievements screen using the default achievement graphics.
+
+![Show Picture Achievements Screenshot 1](https://raw.githubusercontent.com/lgamedev/Liam-RPGM-Scripts/main/github%20readme%20graphics/show%20picture%20achievements%20achieve%20screen.png)
+
+Here is an example of an achievement popup using the default achievement graphics.
+
+![Show Picture Achievements Screenshot 2](https://raw.githubusercontent.com/lgamedev/Liam-RPGM-Scripts/main/github%20readme%20graphics/show%20picture%20achievements%20achieve%20poup.png)
 
 
