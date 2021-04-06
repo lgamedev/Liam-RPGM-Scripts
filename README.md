@@ -8,8 +8,7 @@ are designed for will not be familiar with programming. These scripts are intend
 might be able to make a few tweaks to get the script to work the way they want it to. 
 
 If you would like to talk to me for whatever reason, whether it is to commission a new script, report bugs, or learn RPGMaker scripting yourself, I have a
-RPGMaker scripting focused discord server you can join with the following link:
-https://discord.gg/JgaBenr
+RPGMaker scripting focused discord server you can join through the following link: https://discord.gg/JgaBenr
 
 # Script List
 
