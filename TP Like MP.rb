@@ -1,3 +1,8 @@
+# IMPORT SECTION (DO NOT MODIFY):
+$imported = {} if $imported.nil?
+$imported["Liam-TPLikeMP"] = true
+# END OF IMPORT SECTION
+
 # Script:           TP like MP (& extra TP settings)
 # Author:           Liam
 # Version:          1.0.3
@@ -52,8 +57,8 @@
 # Remaining differences: No "tp drain" formula option, and no TP-type attack type
 #
 # Note 2: If you want to change tp bar colors/tp skill cost colors, those colors are
-# set in Window_Base starting on line 169 with
-#   def tp_gauge_color1;   text_color(18);  end;    # TP gauge 1
+# set in Window_Base starting on line 169 with the line
+#   def tp_gauge_color1;   text_color(18);  end;
 # To change the colors of things, just change the number in text_color()
 # To see what each number corresponds to, look up "RPGMaker Text Colors"
 # for more information.
