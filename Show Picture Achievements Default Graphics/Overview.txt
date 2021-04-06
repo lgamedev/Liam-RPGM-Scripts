@@ -1,0 +1,11 @@
+These graphics were created by "the iceman". Please give them credit to them if you use these graphics.
+These graphics can be used for noncommercial or commercial projects, so long as credit is given.
+The empty black background and achievement title image are exempt from these stipulations as they are not original.
+
+These graphics when put together and assigned the correct names according to the script settings will form
+a complete achievements setup.
+
+If you want to see the script working immediately after copy-pasting the initial version of the script into
+your script list, then copy paste the contents of the "initial setup graphics" folder into a new folder that you create named
+"achievements" in your game's directory. Upon launching your game, you should then be able to access the fully-functioning
+achievements screen.
