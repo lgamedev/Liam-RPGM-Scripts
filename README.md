@@ -552,6 +552,11 @@ Description:
 
 The main function of this script is that it allows you to have Lisa-style movement for the player without using any events. This script supports backwards compatibility with evented lisa movement (so long as the script is toggled off in such areas). Tiles in tilesets can be set as platforms that can be walked on or jumped to by setting terrain tags on them that are designated to mark platforms. Events can also serve as platforms by using tags in the event name. Different platform types can also be set, which have unique sounds and different damage amounts when falling from unsafe heights.
 
+There's also some new features like:
+* Having the option to use visible followers
+* No longer having to press the interact key to move up or down (it is now an option)
+* In-built support for eventless ropes
+
 **IMAGES/MEDIA:**
 
 Here is a link to Lisa: The Tech Demo which is made to show off what the script can do, and how to make the script do what you want. Use it as a testing ground if you want to play around with the script before using it in your own projects.
