@@ -316,7 +316,7 @@ Description:
 
 This script allows you to toggle making the hp bar value unknown in and out of battle with a toggleable game switch and with actor states. The MP and TP bar can also be set to be hidden along with HP.
 
-**IMAGES/MEDIA:**
+**IMAGES:**
 
 This image shows how the mystery HP can be afflicted through a state in battle. Additionally, this has the settings for hiding MP and TP bars on as well.
 
