@@ -659,7 +659,7 @@ Current Version:        1.0
 
 Description:
 
-This script allows the equivalent of "show picture" commands to be used in more scenes than just on the game map and in battle. It also ensures that images shown using this script do not interfere with any existing visual elements on screen. This script is primarily designed to be utilized by other scripts, and does serve much of a purpose by itself.
+This script allows the equivalent of "show picture" commands to be used in more scenes than just on the game map and in battle. It also ensures that images shown using this script do not interfere with any existing visual elements on screen. This script is primarily designed to be utilized by other scripts, and does not serve much of a purpose by itself.
 
 **IMAGES:**
 
