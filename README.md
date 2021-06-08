@@ -139,7 +139,7 @@ This script allows you to play animations once in the center of the screen rathe
 ## TP Like MP and More
 **SCRIPT INFO:**
 
-Current Version:        1.0.3
+Current Version:        1.1
 
 <details>
 
@@ -158,11 +158,20 @@ Current Version:        1.0.3
   v1.0.3 Changelog:
   * Added discord and github link
   
+  v1.1 Changelog:
+  * Added the ability to use damage formulas to do tp damage/recovery/draining
+  * Added more script calls for modifying the actor's tp values directly
+  * Split off enemy initial tp from the generic initial tp
+  * Added options for forcing tp bars to display (or not display) as long as the actor's max tp is above 0
+  * Changed item usage conditions so tp gain items that only use notetags to do the tp gain will be able to be used
+  * Fixed not having the yanfly battle engine script causing a crash
+  * Fixed a typo causing a crash when actor-specific max tp formulas were used
+  
 </details>
 
 Description:
 
-This script allows you to make TP into a system that works similarly to the MP system, and basically allows you to customize the TP system as much as you can customize the MP system. Normally, everything to do with TP assumes that max TP has a hard cap of 100. You cannot make TP skills costs over 100, you cannot make TP gain effects of flat numbers, or make TP-loss effects, and you cannot increase or decrease the set max TP. This script changes all of that. There is a large amount of settings including settings for initial TP at the start of battles, settings for TP preservation, settings for changing TP gained by damage, settings for changing how the TCR (TP Charge Rate) parameter works, and more. Additionally, a new parameter is added using notetags, TPCSTR or TP Cost Rate, which affects how much TP skills cost, similar to its MP cost rate equivalent.
+This script allows you to make TP into a system that works similarly to the MP system, and basically allows you to customize the TP system as much as you can customize the MP system. Normally, everything to do with TP assumes that max TP has a hard cap of 100. You cannot make TP skills costs over 100, you cannot make TP gain effects of flat numbers, or make TP-loss effects, and you cannot increase or decrease the set max TP. This script changes all of that. There is a large amount of settings including settings for initial TP at the start of battles, settings for TP preservation, settings for changing TP gained by damage, settings for changing how the TCR (TP Charge Rate) parameter works, and more. Additionally, a new parameter is added using notetags, TPCSTR or TP Cost Rate, which affects how much TP skills cost, similar to its MP cost rate equivalent. You can also set up damage formulas for TP (Damage, Recovery, Draining), just like HP and MP by using damage formula notetags.
 
 **IMAGES:**
 
