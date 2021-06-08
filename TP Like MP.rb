@@ -5,7 +5,7 @@ $imported["Liam-TPLikeMP"] = true
 
 # Script:           TP like MP (& extra TP settings)
 # Author:           Liam
-# Version:          1.0.3
+# Version:          1.1
 # Description:
 # This script allows you to make TP into a system that works similarly to
 # the MP system. Normally, everything to do with TP assumes that max TP has
@@ -17,7 +17,9 @@ $imported["Liam-TPLikeMP"] = true
 # changing TP gained by damage, settings for changing how the TCR (TP Charge Rate)
 # parameter works, and more. Additionally, a new parameter is added using
 # notetags, TPCSTR or TP Cost Rate, which affects how much TP skills cost,
-# similar to its MP cost rate equivalent.
+# similar to its MP cost rate equivalent. You can also set up damage
+# formulas for TP (Damage, Recovery, Draining), just like HP and MP by
+# using damage formula notetags.
 # 
 # Feel free to use this script however you like, commercial or not, as long
 # as you credit me. Just 'Liam' is fine.
@@ -37,7 +39,9 @@ $imported["Liam-TPLikeMP"] = true
 # __Usage Guide__
 # ! Necessary Database action ! (manually do this if to see the TP bar in battle):
 # check "Display TP in Battle" in the upper right corner of the "System"
-# tab in the RPGM database.
+# tab in the RPGM database. Technically, this isn't necessary if you force
+# the TP bars to display, but it might mess with other scripts so you should
+# check it just to be safe.
 #
 # To use this script, modify all of the settings in the Modifiable Constants
 # section so that the TP system does what you want, and use the notetags
@@ -54,7 +58,7 @@ $imported["Liam-TPLikeMP"] = true
 #   an appropriate max TP value.
 #   - Set TP_DAMAGE_GAIN_SETTING to "Multiplier"
 #   - Set TP_DAMAGE_MULTIPLIER to 0
-# Remaining differences: No "tp drain" formula option, and no TP-type attack type
+# Remaining difference: No "TP-type" attack type (like the Physical and Magic attack types)
 #
 # Note 2: If you want to change tp bar colors/tp skill cost colors, those colors are
 # set in Window_Base starting on line 169 with the line
@@ -69,26 +73,56 @@ $imported["Liam-TPLikeMP"] = true
 # each setting.
 #
 #   Calling:
-# There is one new script call you can use in events,
-# tplmp_change_actor_tp(tpChange, *idList)
-# This method changes the TP to the newTPVal for the actors in the idList
-# of actorIDs.
+# There is four new script calls you can use in events:
+#
+# tplmp_change_actor_tp(tpChange, actorID1, actorID2, actorID3, ...)
+# This method changes the TP by the tpChange amount (positive or negative number)
+# for the actors whose actorIDs are listed.
+#
+# tplmp_change_party_tp(tpChange)
+# This method changes the pary's TP by the tpChange amount
+# (positive or negative number) for the active party members.
+#
+# tplmp_set_actor_tp(newTP, actorID1, actorID2, actorID3, ...)
+# This method sets the TP of the actors whose actorIDs are listed to the newTP number.
+#
+# tplmp_set_party_tp(newTP)
+# This method sets the party's TP to the newTP amount.
 #
 #   Parameters:
-# tpChange is what to change the actor's TP value by (it is added to the existing
-# TP count for the actor(s)). It should be a number.
-# The *idList is actually a variable amount of parameters, so you can
-# call it like tplmp_change_actor_tp(15, 1, 3, 10), or just tplmp_change_actor_tp(15, 1)
+# tpChange is what to change an actor's TP value by (it is added to the existing
+# TP count for the actor(s)). It should be a number (positive or negative).
+#
+# newTP is what to set an actor's tp to. It should be a positive number.
+#
+# actorIDn where n is a number is an actor's ID, and there can be as many
+# of them in the comma-separated list as is necessary. This means you can
+# can call like:
+# tplmp_change_actor_tp(15, 1, 3, 10),
+# or just tplmp_change_actor_tp(15, 1)
 #
 #   Examples:
 # tplmp_change_actor_tp(15, 1, 3, 10)
+# The above script line will increase the TP of the actors with
+# actorIDs 1, 3, and 10.
 #
-# The above script line will set the TP of the actors with actorIDs 1, 3, and 10
-# to 15.
+# tplmp_change_party_tp(-15)
+# The above script line will decrease the TP of the actors in the party by 15.
+#
+# tplmp_set_actor_tp(20, 1, 3, 10)
+# The above script line will set the TP of the actors with
+# actorIDs 1, 3, and 10 to 20.
+#
+# tplmp_set_party_tp(20)
+# The above script line will set the TP of the actors in the party to 20.
 #
 #   Notetags:
 # The following is a guide for the available notetags added in this script.
 # Place these in the appropriate "Notes" section of pages in the database.
+# 
+# Note: Notetags for skills/items will be treated like the "Effects" section
+# tp changes, for tp damage formulas, see the Damage Formula Notetags section
+# further down this script.
 #
 # There is a lot of notetags, so here is a quick reference guide before going
 # into more detail on each one:
@@ -177,6 +211,9 @@ $imported["Liam-TPLikeMP"] = true
 # <T-TPCHANGE% num>
 # <T-TPCHANGE num>
 #
+# The above notetags can be used on the following database pages:
+# Skill, Item
+#
 # The T-TPCHANGE% notetag is used to add/remove a percentage of max TP from
 # the target(s). The T-TPCHANGE% value will be multiplied with max TP to get
 # the amount to add/remove to the total skill/item user TP change.
@@ -188,7 +225,35 @@ $imported["Liam-TPLikeMP"] = true
 # with T-TPCHANGE notetags will be able to be used unless the total calculated
 # T-TPCHANGE value (percent and flat number together) is positive and the actor
 # is already at max TP.
+#
+#   Damage Formula Notetags:
+# The following is a guide for the available damage formula notetags added
+# in this script.
+# Place these in the "Formula" section of skills/item pages in the database
+# to transform the formula into a TP-based formula. It does not matter
+# which kind of formula the drop-down menu is set to (as long as it isn't
+# "none", since that will prevent you from enterng a formula).
+#
+# Example: <TPDAM> 3 + a.mat
+# The above example would set up a TP damaging attack with a value
+# of 3 plus the user's magic attack parameter. The formula is the structured
+# the same as usual other than the TPDAM notetag in front of it.
 # 
+# <TPDAM>
+#
+# The TPDAM notetag is used to turn a damage formula into a TP-damage
+# damage formula.
+#
+# <TPREC>
+#
+# The TPREC notetag is used to turn a damage formula into a TP-recovery
+# damage formula.
+#
+# <TPDRAIN>
+#
+# The TPDRAIN notetag is used to turn a damage formula into a TP-draining
+# damage formula.
+#
 #
 # __Modifiable Constants__
 module TPLMP
@@ -196,6 +261,37 @@ module TPLMP
   #   ---------------------------------
   # When true, makes it so the tp bar displays in the menu (not just in battle)
   TPLMP_DISPLAY_TP_IN_MENU = true
+  
+  # Decides if the TP bar should be forced to display in the menu and in
+  # battle for actors regardless of anything else (other than if max TP is 0).
+  TPLMP_FORCE_TP_BAR_DISPLAY = false
+  
+  # List any actors who should always have their TP bars displayed here.
+  # (TP bars will still not display if max TP is 0).
+  # This should be a comma-separated list.
+  # Ex.
+  # TPLMP_FORCE_TP_BAR_DISPLAY_ACTORS = [
+  #   3, 4, 5
+  # ]
+  # The above version of the setting will force TP bars to display for actors
+  # with the actorIDs 3, 4, and 5.
+  TPLMP_FORCE_TP_BAR_DISPLAY_ACTORS = [
+    
+  ]
+  
+  # List any actors who should never have their TP bars displayed here.
+  # This will override the TPLMP_FORCE_TP_BAR_DISPLAY setting for actors
+  # that are put in this list.
+  # This should be a comma-separated list.
+  # Ex.
+  # TPLMP_FORCE_TP_BAR_NEVER_DISPLAY_ACTORS = [
+  #   3, 4, 5
+  # ]
+  # The above version of the setting will force TP bars to never display for actors
+  # with the actorIDs 3, 4, and 5.
+  TPLMP_FORCE_TP_BAR_NEVER_DISPLAY_ACTORS = [
+    
+  ]
   
   # When true, makes it so you can always preserve tp between fights,
   # tp will not be reset at the beginning or end of fights
@@ -232,6 +328,7 @@ module TPLMP
   TP_DISABLED_ACTORS = [
     
   ]
+  
   # Decides how you want to set the max tp for actors
   #   "None" to use the default value (100)
   #   "Number" to use MAX_TP_NUMBER
@@ -241,6 +338,7 @@ module TPLMP
   #   "Actor Formula" to set different formulas for different actors, and
   #   MAX_TP_FORMULA as the default
   USE_MAX_TP = "Actor Number"
+  # The standard maximum TP number.
   # NOTE: This number is used for maximum enemy TP no matter what setting
   # you use. To increase/decrease the number for specific enemies,
   # use the MAXTP notetags (and use negative or positive values).
@@ -305,15 +403,15 @@ module TPLMP
   
   # Battle Initial TP Settings
   #   ---------------------------------
-  # Decides what form of initializing tp at the start of battle you want
+  # Decides what form of initializing tp at the start of battle you want for actors.
   #   "None" to have it not change the existing TP, (You can use this if ALWAYS_PRESERVE_TP is on)
   #   "Number" to use INIT_TP_NUMBER
   #   "Max" to use the actor's max tp
   #   "Formula" to use INIT_TP_FORMULA
   USE_INIT_TP = "Number"
-  # initialize tp at start of battles to this number if enabled
+  # Initialize tp at start of battles to this number if enabled.
   INIT_TP_NUMBER = 10
-  # initialize tp at start of battle to a ruby formula (in quotes)
+  # Initialize tp at start of battle to a ruby formula (in quotes).
   # Note: the default formula used here is the base script's standard formula
   # used to initialize tp, which is a random percentage (decimal number btwn
   # 0 and 1), and multiplied by 25 (resulting in range of 0-25, avg = 12).
@@ -347,6 +445,25 @@ module TPLMP
   # IMPORTANT NOTE: Using 100.0 in percentage division is necessary so that
   # the code interpreter uses decimals in the percentage result.
   INIT_TP_FORMUlA = "rand * 25"
+  
+  # Decides what form of initializing tp at the start of battle you want
+  #   "None" to have it not change the existing TP, (You can use this if ALWAYS_PRESERVE_TP is on)
+  #   "Number" to use ENEMY_INIT_TP_NUMBER
+  #   "Max" to use the enemy's max tp
+  #   "Formula" to use ENEMY_INIT_TP_FORMULA
+  USE_ENEMY_INIT_TP = "Max"
+  # Initialize enemy TP at start of battles to this number if enabled.
+  ENEMY_INIT_TP_NUMBER = 10
+  # Initialize enemy TP at start of battle to a ruby formula (in quotes).
+  #
+  # Custom formulas require quotes around them.
+  # Ex.
+  # "(((rand(-25..25) + 50) / 100.0) * max_tp).to_i"
+  # The above formula would start off actors/enemies with between 25% and 75%
+  # of their max TP.
+  # IMPORTANT NOTE: Using 100.0 in percentage division is necessary so that
+  # the code interpreter uses decimals in the percentage result.
+  ENEMY_INIT_TP_FORMUlA = "rand * 75"
   #   ---------------------------------
   
   
@@ -443,11 +560,25 @@ module TPLMP
   #   ---------------------------------
   
   # __END OF MODIFIABLE CONSTANTS__
+  
+  
+  
+  # BEGINNING OF SCRIPTING ====================================================
+  
+  # These numbers deal with data values in the RPG::UsableItem::Damage class.
+  # They are used to create the TP damage formulas.
+  # !!! DO NOT MODIFY THESE !!! unless there is a reason like compatibility
+  # issues and you know what you're doing.
+  
+  # Number for the "TP damage" damage type
+  TP_DAMAGE_TYPE_NUM = 21
+  # Number for the "TP recovery" damage type
+  TP_RECOVER_TYPE_NUM = 22
+  # Number for the "TP drain" damage type
+  TP_DRAIN_TYPE_NUM = 23
 end
 
 
-
-# BEGINNING OF SCRIPTING ====================================================
 class Game_BattlerBase
   #--------------------------------------------------------------------------
   # * Aliased tp= assignment operator to ensure that tp val stays as an integer
@@ -467,7 +598,9 @@ class Game_BattlerBase
   end
   
   #--------------------------------------------------------------------------
-  # * Get Maximum Value of TP
+  # * Aliased max_tp() used to account for custom max tp values (not just having
+  # * it be 100 and nothing else). There are different ways of obtaining
+  # * the max tp values depending on the max tp setting.
   #--------------------------------------------------------------------------
   # aliased max tp to allow custom max tp values
   alias after_tplmp_calc_max_tp max_tp
@@ -523,7 +656,7 @@ class Game_BattlerBase
         # check if the ACTOR_CUSTOM_MAX_TP_FORMULAS hash has the battler's
         # actorID in it, then use the custom formula for that actor,
         # otherwise, use the default number MAX_TP_FORMULA
-        if (ACTOR_CUSTOM_TP_FORMULAS.has_key?(actorID))
+        if (ACTOR_CUSTOM_MAX_TP_FORMULAS.has_key?(actorID))
           resultMaxTP = (eval(TPLMP::ACTOR_CUSTOM_MAX_TP_FORMULAS[actorID])).to_i
         else
           resultMaxTP = (eval(TPLMP::MAX_TP_FORMULA)).to_i
@@ -652,7 +785,7 @@ class Game_BattlerBase
   
   #--------------------------------------------------------------------------
   # * Aliased refresh() method used to ensure that tp (like hp and mp) is
-  # within the acceptable range (0 and the tp maximum).
+  # * within the acceptable range (0 and the tp maximum).
   #--------------------------------------------------------------------------
   alias before_tplmp_tp_refresh refresh
   def refresh
@@ -754,28 +887,84 @@ class Game_Battler < Game_BattlerBase
     # 0 and 1), and multiplies it by 25, resulting in range of 0-25)
     tplmp_init_tp_orig # call orginal method
     
-    # get the USE_INIT_TP setting as all lower case letters
-    initTPSetting = TPLMP::USE_INIT_TP.downcase
-    # case statement, choose appropriate tp for each initial TP setting
-    case initTPSetting
-    when "none"
-      # set initial TP to the original TP
-      self.tp = origTP
-    when "number"
-      # set initial TP to a specific defined number
-      self.tp = TPLMP::INIT_TP_NUMBER
-    when "max"
-      # set initial TP to the max amount of TP
-      self.tp = self.max_tp
-    when "formula"
-      # set tp to the evaluated ruby code formula with result as integer
-      self.tp = (eval(TPLMP::INIT_TP_FORMULA)).to_i
+    # use different initial tp depending the battler is a Game_Enemy object or not
+    if (self.kind_of?(Game_Enemy))
+      # get the USE_INIT_TP setting as all lower case letters
+      enemyInitTPSetting = TPLMP::USE_ENEMY_INIT_TP.downcase
+      # case statement, choose appropriate tp for each initial TP setting
+      case enemyInitTPSetting
+      when "none"
+        # set initial TP to the original TP
+        self.tp = origTP
+      when "number"
+        # set initial TP to a specific defined number
+        self.tp = TPLMP::ENEMY_INIT_TP_NUMBER
+      when "max"
+        # set initial TP to the max amount of TP
+        self.tp = self.max_tp
+      when "formula"
+        # set tp to the evaluated ruby code formula with result as integer
+        self.tp = (eval(TPLMP::ENEMY_INIT_TP_FORMULA)).to_i
+      end
+    else
+      # get the USE_INIT_TP setting as all lower case letters
+      initTPSetting = TPLMP::USE_INIT_TP.downcase
+      # case statement, choose appropriate tp for each initial TP setting
+      case initTPSetting
+      when "none"
+        # set initial TP to the original TP
+        self.tp = origTP
+      when "number"
+        # set initial TP to a specific defined number
+        self.tp = TPLMP::INIT_TP_NUMBER
+      when "max"
+        # set initial TP to the max amount of TP
+        self.tp = self.max_tp
+      when "formula"
+        # set tp to the evaluated ruby code formula with result as integer
+        self.tp = (eval(TPLMP::INIT_TP_FORMULA)).to_i
+      end
     end
+    
+
+  end
+  
+  #--------------------------------------------------------------------------
+  # * Aliased item_test() method used to allow usage of items/skill with
+  # * tp damage/recovery/draining damage formulas, and usage of tp gain effect
+  # * items using the new notetags outside of battle.
+  #--------------------------------------------------------------------------
+  alias after_tplmp_notetag_tp_changes item_test
+  def item_test(user, item)
+    # do initial check just to make sure the target isn't dead
+    return false if item.for_dead_friend? != dead?
+    
+    # get current max tp
+    currMaxTP = max_tp
+    
+    # return true if item is primarily a tp recovery item and the target
+    # is not at max tp.
+    return true if item.damage.recover? && item.damage.to_tp? && tp < currMaxTP
+    # return false if item a tp recovery item and target at max tp
+    return false if item.damage.recover? && item.damage.to_tp? && tp == currMaxTP
+    # return false if item a tp recovery item and target's max tp is 0
+    return false if item.damage.recover? && item.damage.to_tp? && currMaxTP == 0
+    
+    # get the total itemTPChange (from notetags)
+    itemTPChange = calculateTotalTargetTPChange(item)
+    
+    # return true if the itemTPChange is positive and tp < maxTP
+    return true if (itemTPChange > 0) && (tp < max_tp)
+    
+    # Call original method
+    after_tplmp_notetag_tp_changes(user, item)
   end
   
   
   #--------------------------------------------------------------------------
-  # * Apply Effect of Skill/Item
+  # * Aliased item_apply() method used to correctly gain TP amounts included
+  # * both notetagged gain and base engine effect gain. Also ensures that
+  # * tp effects/attacks actually go through.
   #--------------------------------------------------------------------------
   alias after_tplmp_item_apply_changes_done item_apply
   def item_apply(user, item)
@@ -941,6 +1130,8 @@ class Game_Battler < Game_BattlerBase
     $tplmp_doNotDoPopupsYet = true
     
     origTP = self.tp # store the tp value before original method is run
+    # store the tp damage value before original method is run
+    origTPDam = @result.tp_damage
     effectValue = effect.value1.to_i # get the effect value
     origResultSuccess = @result.success # get the original success value
     
@@ -960,7 +1151,7 @@ class Game_Battler < Game_BattlerBase
       # the data modified by the original method
       self.tp = origTP
       @result.success = origResultSuccess
-      @result.tp_damage = 0
+      @result.tp_damage = origTPDam
       
       # check if the effectValue is positive or negative, and do different
       # processing depending on the result
@@ -1113,8 +1304,29 @@ class Game_Battler < Game_BattlerBase
   end
   
   #--------------------------------------------------------------------------
+  # * Aliased execute_damage() used to perform target tp damage loss and user
+  # * tp drain damage gain.
+  #--------------------------------------------------------------------------
+  alias tplmp_after_tp_drain_execute execute_damage
+  def execute_damage(user)
+    # temporarily save tp damage amount (circumvents yanfly variable resets)
+    tpDamageAmount = @result.tp_damage
+    # temporarily save tp drain amount (circumvents yanfly variable resets)
+    tpDrainAmount = @result.tplmp_tp_drain
+    
+    # Call original method
+    tplmp_after_tp_drain_execute(user)
+    
+    # perform target tp damage losing (or gaining if set to recovery) tp change
+    self.tp -= tpDamageAmount
+    
+    # perform user tp drain tp gain change
+    user.tp += tpDrainAmount
+  end
+  
+  #--------------------------------------------------------------------------
   # * Aliased regenerate_tp() method used to properly change tp according
-  # * to the actual max_hp. Aliased just 
+  # * to the actual max_tp.
   #--------------------------------------------------------------------------
   alias tplmp_regenerate_tp_orig_method regenerate_tp
   def regenerate_tp
@@ -1607,7 +1819,7 @@ class Window_Base < Window
     # if the DISPLAY_TP_IN_MENU setting is on and max TP is above zero, and
     # the scene is not the actors stats screen (TP bar doesn't really fit there),
     # then the tp bar can be displayed as part of draw_actor_simple_status
-    if (tpBarCanDisplay && TPLMP::TPLMP_DISPLAY_TP_IN_MENU && (actor.max_tp > 0))
+    if (tpBarCanDisplay && TPLMP::TPLMP_DISPLAY_TP_IN_MENU && !actor.force_disable_draw_tp? && (actor.max_tp > 0))
       draw_actor_tp(actor, x + 120, y + (line_height * lineHeightMultiplier).to_i, tpBarWidth)
     end
   end
@@ -1669,6 +1881,127 @@ class Window_Base < Window
     end
   end
   
+end
+
+
+class Game_Actor < Game_Battler
+  #--------------------------------------------------------------------------
+  # * New method used to check if the tp bar should be forced to display
+  # * for the actor according to the script's settings.
+  #--------------------------------------------------------------------------
+  def force_draw_tp?
+    # return false if the tp bar is forcefully disabled
+    return false if (force_disable_draw_tp?)
+    
+    # return false if max_tp is 0
+    return false if (max_tp == 0)
+    
+    # return true if the tp bars are always forced to display
+    return true if (TPLMP::TPLMP_FORCE_TP_BAR_DISPLAY)
+    
+    # return true if the bar is forced to display for the specific actor
+    return true if (TPLMP::TPLMP_FORCE_TP_BAR_DISPLAY_ACTORS.include?(self.id))
+    
+    # return false if no criteria for forcing tp bar drawing were met
+    return false
+  end
+  
+  #--------------------------------------------------------------------------
+  # * New method used to check if the tp bar should be forced to not display
+  # * for the actor according to the script's settings.
+  #--------------------------------------------------------------------------
+  def force_disable_draw_tp?
+    # return true if max_tp is 0
+    return true if (max_tp == 0)
+    
+    # return true if the bar is forced to never display for the specific actor
+    return (TPLMP::TPLMP_FORCE_TP_BAR_NEVER_DISPLAY_ACTORS.include?(self.id))
+  end
+end
+
+
+class Window_BattleStatus < Window_Selectable
+  #--------------------------------------------------------------------------
+  # * Aliased draw_gauge_area() used to force the tp bar to draw, or to
+  # * not draw.
+  #--------------------------------------------------------------------------
+  alias tplmp_after_draw_gauge_force_show draw_gauge_area
+  def draw_gauge_area(rect, actor)    
+    # if forcing the tp bar to display for the actor, then draw
+    # the gauge area with tp.
+    # if preventing the tp bar from displaying for the actor, then draw
+    # the gauge area without tp.
+    # if doing neither of those two things, then let the method proceed normally.
+    if (actor.force_draw_tp?)
+      draw_gauge_area_with_tp(rect, actor)
+    elsif (actor.force_disable_draw_tp?)
+      draw_gauge_area_without_tp(rect, actor)
+    else
+      # Call original method
+      tplmp_after_draw_gauge_force_show(rect, actor)
+    end
+  end
+end
+
+
+class Game_ActionResult
+  # New variable used to track tp drain amount
+  attr_accessor :tplmp_tp_drain
+  
+  #--------------------------------------------------------------------------
+  # * Aliased clear_damage_values() method used to reset tp_drain to 0
+  # * when the rest of the damage values are reset
+  #--------------------------------------------------------------------------
+  alias tplmp_before_clear_tp_drain_damage_value clear_damage_values
+  def clear_damage_values
+    # Call original method
+    tplmp_before_clear_tp_drain_damage_value
+    
+    @tplmp_tp_drain = 0 # reset tp drain to 0
+  end
+  
+  #--------------------------------------------------------------------------
+  # * Aliased make_damage() method used to setup the new tp drain damage.
+  #--------------------------------------------------------------------------
+  alias tplmp_after_tp_drain_set make_damage
+  def make_damage(value, item)
+    # set tp_damage to value if dealing with tp
+    @tp_damage = value if item.damage.to_tp?
+    
+    # calculate the actual amount of tp that will be drained
+    @tp_damage = [@battler.tp, @tp_damage].min
+    
+    # save the current tp_damage value as the amount to be drained
+    # if the current damage formula is a draining one
+    @tplmp_tp_drain = @tp_damage if item.damage.drain?
+    
+    # Call original method
+    tplmp_after_tp_drain_set(value, item)
+    
+    # if tp drain is not equal to 0, mark the move as a success
+    @success = true if (@tplmp_tp_drain != 0)
+  end
+  
+  #--------------------------------------------------------------------------
+  # * Aliased tp_damage_text() used to return tp drain text if there
+  # * is tp drain damage.
+  #--------------------------------------------------------------------------
+  alias tplmp_before_tp_drain_text_setup tp_damage_text
+  def tp_damage_text
+    # Call original method (get previous result)
+    newResult = tplmp_before_tp_drain_text_setup
+    
+    # if tp_drain is greater than 0, replace the text with tp drain text,
+    if (@tplmp_tp_drain > 0)
+      # setup the text formatting
+      fmt = @battler.actor? ? Vocab::ActorDrain : Vocab::EnemyDrain
+      # overwrite newResult with the tp drain text
+      newResult = sprintf(fmt, @battler.name, Vocab::tp, @tplmp_tp_drain)
+    end
+    
+    # return new result implicitly
+    newResult
+  end
 end
 
 
@@ -1873,59 +2206,305 @@ class RPG::Skill < RPG::UsableItem
 end
 
 
+class RPG::UsableItem::Damage  
+  #--------------------------------------------------------------------------
+  # * New method used to properly set the tp damage/recovery/draining
+  # * damage formula type number using the new damage formula notetags.
+  # * format:
+  # * <TPDAM> -> TP Damage Formula
+  # * <TPREC> -> TP Recovery Formula
+  # * <RPDRAIN> -> TP Draining Formula
+  #--------------------------------------------------------------------------
+  def tplmp_update_damage_formula_type
+    # get damage formula string
+    damageFormula = @formula
+    
+    # start with formulaNotetag as "none"
+    formulaNotetag = "none"
+    
+    # check for tp damage type formula notetags and save which one it is
+    # if any notetags apply
+    if (damageFormula =~ /<TPDAM>/i)
+      formulaNotetag = "tpdam"
+    elsif (damageFormula =~ /<TPREC>/i)
+      formulaNotetag = "tprec"
+    elsif (damageFormula =~ /<TPDRAIN>/i)
+      formulaNotetag = "tpdrain"
+    end
+    
+    # case statement, set appropriate damage formula type depending on
+    # the formula notetag
+    case formulaNotetag
+    when "tpdam"
+      # set damage formula type to tp damage
+      @type = TPLMP::TP_DAMAGE_TYPE_NUM
+    when "tprec"
+      # set damage formula type to tp recovery
+      @type = TPLMP::TP_RECOVER_TYPE_NUM
+    when "tpdrain"
+      # set damage formula type to tp drain
+      @type = TPLMP::TP_DRAIN_TYPE_NUM
+    end
+    
+    # update damage formula to remove the notetag and strip whitespace
+    @formula = damageFormula.gsub(/<TP.*>/i, "")
+    @formula = @formula.strip
+  end
+  
+  #--------------------------------------------------------------------------
+  # * New method used for checking if the damage formula is meant to do
+  # * something (damage, recover, draining, etc.) with tp.
+  #--------------------------------------------------------------------------
+  def to_tp?
+    [TPLMP::TP_DAMAGE_TYPE_NUM, TPLMP::TP_RECOVER_TYPE_NUM, TPLMP::TP_DRAIN_TYPE_NUM].include?(@type)
+  end
+  
+  #--------------------------------------------------------------------------
+  # * Aliased recover?() method for RPG::UsableItem::Damage used to
+  # * include tp recovery when checking if a damage formula type is a
+  # * recovery one.
+  #--------------------------------------------------------------------------
+  alias tplmp_before_tp_damage_type_recover_check recover?
+  def recover?
+    # only line of original method -> [3,4].include?(@type)
+    # Call original method (get previous result)
+    finalResult = tplmp_before_tp_damage_type_recover_check
+
+    # mark as recovery if tp recovery is the type
+    finalResult = (finalResult || (@type == TPLMP::TP_RECOVER_TYPE_NUM))
+    
+    # return final result implicitly
+    finalResult
+  end
+  
+  #--------------------------------------------------------------------------
+  # * Aliased drain?() method for RPG::UsableItem::Damage used to
+  # * include tp draining when checking if a damage formula type is a
+  # * draining one.
+  #--------------------------------------------------------------------------
+  alias tplmp_before_tp_damage_type_drain_check recover?
+  def drain?
+    # only line of original method -> [5,6].include?(@type)
+    # Call original method (get previous result)
+    finalResult = tplmp_before_tp_damage_type_drain_check
+    
+    # mark as drain if tp drain is the type
+    finalResult = (finalResult || (@type == TPLMP::TP_DRAIN_TYPE_NUM))
+  end
+
+end
+
+
+class Game_Action
+  #--------------------------------------------------------------------------
+  # * Aliased evaluate_item() method used to prepare the tp damage and tp draining
+  # * damage formulas.
+  #--------------------------------------------------------------------------
+  alias tplmp_after_tp_damage_formula_setup_eval evaluate_item
+  def evaluate_item
+    # update the item's damage formula type
+    item.damage.tplmp_update_damage_formula_type
+    
+    # Call original method
+    tplmp_after_tp_damage_formula_setup_eval
+  end
+end
+
+
+class Scene_ItemBase < Scene_MenuBase
+  #--------------------------------------------------------------------------
+  # * Aliased use_item() for Scene_ItemBase used to prepare the tp damage
+  # * and tp draining damage formulas.
+  #--------------------------------------------------------------------------
+  alias tplmp_after_tp_damage_formula_setup_item_use_item use_item
+  def use_item
+    # update the item's damage formula type
+    item.damage.tplmp_update_damage_formula_type
+    
+    # Call original method
+    tplmp_after_tp_damage_formula_setup_item_use_item
+  end
+end
+
+
+class Scene_Battle < Scene_Base
+  #--------------------------------------------------------------------------
+  # * Aliased use_item() for Scene_Battle used to prepare the tp damage
+  # * and tp draining damage formulas.
+  #--------------------------------------------------------------------------
+  alias tplmp_after_tp_damage_formula_setup_battle_use_item use_item
+  def use_item
+    # get item
+    item = @subject.current_action.item
+    
+    # if item exists, set it up properly
+    if (item)
+      # update the item's damage formula type
+      item.damage.tplmp_update_damage_formula_type
+    end
+    
+    # Call original method
+    tplmp_after_tp_damage_formula_setup_battle_use_item
+  end
+end
+
+  
 class Game_Interpreter
   #--------------------------------------------------------------------------
   # * New method made to change the actor(s) tp whose actorID(s) is/are passed
   # * by the tpChange amount. The amount of actorID parameters can vary.
   #--------------------------------------------------------------------------
   def tplmp_change_actor_tp(tpChange, *idList)
-    # Set all actors using the actor idList
+    # change tp of all designated actors using the actor idList
     idList.each do |idNum|
       $game_actors[actorID].tp += tpChange
     end
   end
+  
+  #--------------------------------------------------------------------------
+  # * New method made to change the party's tp by the tpChange amount.
+  # * The amount of actorID parameters can vary.
+  #--------------------------------------------------------------------------
+  def tplmp_change_party_tp(tpChange)
+    # change tp of all actors in party
+    $game_party.members.each do |actor|
+      actor.tp += tpChange
+    end
+  end
+  
+  #--------------------------------------------------------------------------
+  # * New method made to set the actor(s) tp whose actorID(s) is/are passed
+  # * to the newTP amount. The amount of actorID parameters can vary.
+  #--------------------------------------------------------------------------
+  def tplmp_set_actor_tp(newTP, *idList)
+    # set tp of all designated actors using the actor idList
+    idList.each do |idNum|
+      actor.tp = tpChange
+    end
+  end
+  
+  #--------------------------------------------------------------------------
+  # * New method made to set the party's tp to the newTP amount.
+  # * The amount of actorID parameters can vary.
+  #--------------------------------------------------------------------------
+  def tplmp_set_party_tp(newTP)
+    # set tp of all actors in party
+    $game_party.members.each do |actor|
+      actor.tp += tpChange
+    end
+  end
+
 end
 
 
 # YANFLY BATTLE ENGINE COMPATIBILITY METHODS PAST THIS POINT ------------------
-class Game_ActionResult
-  #--------------------------------------------------------------------------
-  # * Yanfly Battle Engine restore_damage() aliased to not do restore_damage
-  # * in its item_user_effect if the doNotExecute_restore_damage is set to true
-  #--------------------------------------------------------------------------
-  alias tplmp_ybe_restore_damage_compatibility_old_method restore_damage
-  def restore_damage
-    # if $tplmp_doNotDoPopupsYet flag is nil, then set it to false
-    if ($tplmp_doNotDoPopupsYet == nil)
-      $tplmp_doNotDoPopupsYet = false
+# if-statement contains Yanfly Battle Engine specifc methods
+if ($imported["YEA-BattleEngine"])
+  class Game_ActionResult
+    #--------------------------------------------------------------------------
+    # * Yanfly Battle Engine restore_damage() aliased to not do restore_damage
+    # * in its item_user_effect if the tplmp_doNotDoPopupsYet is set to true.
+    # * Also now also restores the tp drain value as well.
+    #--------------------------------------------------------------------------
+    alias tplmp_ybe_restore_damage_compatibility_old_method restore_damage
+    def restore_damage
+      # if $tplmp_doNotDoPopupsYet flag is nil, then set it to false
+      if ($tplmp_doNotDoPopupsYet == nil)
+        $tplmp_doNotDoPopupsYet = false
+      end
+      
+      # if $tplmp_doNotDoPopupsYet flag is true, do not call the original method
+      if (!($tplmp_doNotDoPopupsYet == true))
+        @tplmp_tp_drain = @stored_tplmp_tp_drain # restore tp drain amount
+        
+        # otherwise, execute the original method
+        tplmp_ybe_restore_damage_compatibility_old_method
+      end
     end
     
-    # if $tplmp_doNotDoPopupsYet flag is true, do not call the original method
-    if (!($tplmp_doNotDoPopupsYet == true))
-      # otherwise, execute the original method
-      tplmp_ybe_restore_damage_compatibility_old_method
+    #--------------------------------------------------------------------------
+    # * Yanfly Battle Engine store_damage() aliased to include tp drain
+    # * when clearing stored damage.
+    #--------------------------------------------------------------------------
+    alias tplmp_after_tp_drain_stored_damage_clear clear_stored_damage
+    def clear_stored_damage
+      @stored_tplmp_tp_drain = 0 # clear stored tp drain amount
+      
+      # Call original method
+      tplmp_after_tp_drain_stored_damage_clear
+    end
+    
+    #--------------------------------------------------------------------------
+    # * Yanfly Battle Engine store_damage() aliased to include tp drain
+    # * when storing damage.
+    #--------------------------------------------------------------------------
+    alias tplmp_after_tp_drain_store store_damage
+    def store_damage
+      @stored_tplmp_tp_drain += @tplmp_tp_drain # store tp drain amount
+      
+      # Call original method
+      tplmp_after_tp_drain_store
+    end
+    
+  end
+
+
+  class Game_BattlerBase
+    #--------------------------------------------------------------------------
+    # * Yanfly Battle Engine make_damage_popups() aliased to not do
+    # * the contents of the original make_damage_popups in its
+    # * when going through item_effect_gain_tp(). Also sets up tp drain popups.
+    #--------------------------------------------------------------------------
+    alias tplmp_ybe_make_damage_popups_compatibility_old_method make_damage_popups
+    def make_damage_popups(user)
+      
+      # if $tplmp_doNotDoPopupsYet flag is nil, then set it to false
+      if ($tplmp_doNotDoPopupsYet == nil)
+        $tplmp_doNotDoPopupsYet = false
+      end
+      
+      # if $tplmp_doNotDoPopupsYet flag is true, do not call the original method
+      if (!($tplmp_doNotDoPopupsYet == true))
+        # set up tp drain popups if needed
+        if (@result.tplmp_tp_drain != 0)
+          text = YEA::BATTLE::POPUP_SETTINGS[:drained]
+          rules = "DRAIN"
+          user.create_popup(text, rules)
+          setting = :tp_dmg  if @result.tplmp_tp_drain < 0
+          setting = :tp_heal if @result.tplmp_tp_drain > 0
+          rules = "TP_DMG"   if @result.tplmp_tp_drain < 0
+          rules = "TP_HEAL"  if @result.tplmp_tp_drain > 0
+          value = @result.tplmp_tp_drain.abs
+          text = sprintf(YEA::BATTLE::POPUP_SETTINGS[setting], value.group)
+          user.create_popup(text, rules)
+        end
+        
+        # otherwise, execute the original method
+        tplmp_ybe_make_damage_popups_compatibility_old_method(user)
+      end
     end
   end
+
 end
 
-
-class Game_BattlerBase
-  #--------------------------------------------------------------------------
-  # * Yanfly Battle Engine make_damage_popups() aliased to not do
-  # * make_damage_popups in its item_effect_gain_tp
-  #--------------------------------------------------------------------------
-  alias tplmp_ybe_make_damage_popups_compatibility_old_method make_damage_popups
-  def make_damage_popups(user)
-    
-    # if $tplmp_doNotDoPopupsYet flag is nil, then set it to false
-    if ($tplmp_doNotDoPopupsYet == nil)
-      $tplmp_doNotDoPopupsYet = false
-    end
-    
-    # if $tplmp_doNotDoPopupsYet flag is true, do not call the original method
-    if (!($tplmp_doNotDoPopupsYet == true))
-      # otherwise, execute the original method
-      tplmp_ybe_make_damage_popups_compatibility_old_method(user)
+# if-statement contains a method shared by Yanfly Battle Engine
+# and Yanfly Menu Engine
+if ($imported["YEA-BattleEngine"] || $imported["YEA-AceMenuEngine"])
+  class Game_Actor < Game_Battler
+    #--------------------------------------------------------------------------
+    # * Yanfly Battle Engine/Yanfly Menu Engine draw_tp? in Game_Actor used to be able to
+    # * force the TP bar to display in battle.
+    #--------------------------------------------------------------------------
+    alias after_tplmp_special_draw_tp_checks draw_tp?
+    def draw_tp?
+      # return false if the tp bar is forced to not display
+      return false if (force_disable_draw_tp?)
+      
+      # return true if the tp bar is forced to display
+      return true if (force_draw_tp?)
+      
+      # Call original method
+      after_tplmp_special_draw_tp_checks
     end
   end
 end
