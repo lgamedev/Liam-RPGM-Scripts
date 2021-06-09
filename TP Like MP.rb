@@ -5,7 +5,7 @@ $imported["Liam-TPLikeMP"] = true
 
 # Script:           TP like MP (& extra TP settings)
 # Author:           Liam
-# Version:          1.1
+# Version:          1.1.1
 # Description:
 # This script allows you to make TP into a system that works similarly to
 # the MP system. Normally, everything to do with TP assumes that max TP has
@@ -264,7 +264,7 @@ module TPLMP
   
   # Decides if the TP bar should be forced to display in the menu and in
   # battle for actors regardless of anything else (other than if max TP is 0).
-  TPLMP_FORCE_TP_BAR_DISPLAY = false
+  TPLMP_FORCE_TP_BAR_DISPLAY = true
   
   # List any actors who should always have their TP bars displayed here.
   # (TP bars will still not display if max TP is 0).
@@ -784,8 +784,8 @@ class Game_BattlerBase
   end
   
   #--------------------------------------------------------------------------
-  # * Aliased refresh() method used to ensure that tp (like hp and mp) is
-  # * within the acceptable range (0 and the tp maximum).
+  # * Aliased refresh() method for Game_BattlerBase used to ensure that tp
+  # * (like hp and mp) is within the acceptable range (0 and the tp maximum).
   #--------------------------------------------------------------------------
   alias before_tplmp_tp_refresh refresh
   def refresh
@@ -925,7 +925,6 @@ class Game_Battler < Game_BattlerBase
         self.tp = (eval(TPLMP::INIT_TP_FORMULA)).to_i
       end
     end
-    
 
   end
   
@@ -2379,7 +2378,7 @@ class Game_Interpreter
   def tplmp_set_actor_tp(newTP, *idList)
     # set tp of all designated actors using the actor idList
     idList.each do |idNum|
-      actor.tp = tpChange
+      actor.tp = newTP
     end
   end
   
@@ -2390,7 +2389,7 @@ class Game_Interpreter
   def tplmp_set_party_tp(newTP)
     # set tp of all actors in party
     $game_party.members.each do |actor|
-      actor.tp += tpChange
+      actor.tp = newTP
     end
   end
 
