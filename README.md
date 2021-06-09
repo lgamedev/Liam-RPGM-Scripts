@@ -167,6 +167,9 @@ Current Version:        1.1
   * Fixed not having the yanfly battle engine script causing a crash
   * Fixed a typo causing a crash when actor-specific max tp formulas were used
   
+  v1.1.1 Changelog:
+  * Fixed the added script calls from v1.1 so they actually work and don't crash the game
+  
 </details>
 
 Description:
