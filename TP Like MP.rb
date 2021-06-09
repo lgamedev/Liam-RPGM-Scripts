@@ -5,7 +5,7 @@ $imported["Liam-TPLikeMP"] = true
 
 # Script:           TP like MP (& extra TP settings)
 # Author:           Liam
-# Version:          1.1.1
+# Version:          1.1.2
 # Description:
 # This script allows you to make TP into a system that works similarly to
 # the MP system. Normally, everything to do with TP assumes that max TP has
@@ -1330,14 +1330,14 @@ class Game_Battler < Game_BattlerBase
   alias tplmp_regenerate_tp_orig_method regenerate_tp
   def regenerate_tp
     # get original tp value
-    origTPVal = self.tp
+    origTP = self.tp
     
     # only line of original method -> self.tp += 100 * trg
     # call original method
     tplmp_regenerate_tp_orig_method
     
     # set tp value to the orginal value
-    self.tp = origTPVal
+    self.tp = origTP
     # set the tp value to properly regenerate using max_tp
     self.tp += (max_tp * trg).to_i
   end
@@ -1977,8 +1977,9 @@ class Game_ActionResult
     # Call original method
     tplmp_after_tp_drain_set(value, item)
     
-    # if tp drain is not equal to 0, mark the move as a success
-    @success = true if (@tplmp_tp_drain != 0)
+    # if tp drain is not equal to 0, or tp_damage is not equal to 0 and the
+    # item is a tp recovery item, then mark the move as a success
+    @success = true if (@tplmp_tp_drain != 0 || (item.damage.recover? && item.damage.to_tp? && @tp_damage != 0))
   end
   
   #--------------------------------------------------------------------------
@@ -2281,7 +2282,7 @@ class RPG::UsableItem::Damage
   # * include tp draining when checking if a damage formula type is a
   # * draining one.
   #--------------------------------------------------------------------------
-  alias tplmp_before_tp_damage_type_drain_check recover?
+  alias tplmp_before_tp_damage_type_drain_check drain?
   def drain?
     # only line of original method -> [5,6].include?(@type)
     # Call original method (get previous result)
