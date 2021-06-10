@@ -139,7 +139,7 @@ This script allows you to play animations once in the center of the screen rathe
 ## TP Like MP and More
 **SCRIPT INFO:**
 
-Current Version:        1.1.2
+Current Version:        1.1.3
 
 <details>
 
@@ -172,6 +172,9 @@ Current Version:        1.1.2
   
   v1.1.2 Changelog:
   * Fixed tp recovery formulas being improperly recognized as tp drain formulas due to a typo
+  
+  v1.1.3 Changelog:
+  * Fixed tp recovery formulas not being set quickly enough to work for item use testing
   
 </details>
 
