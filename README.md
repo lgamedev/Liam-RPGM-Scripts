@@ -12,6 +12,31 @@ RPGMaker scripting focused discord server you can join through the following lin
 
 # Script List
 
+
+## Event Force Unlock
+**SCRIPT INFO:**
+
+Current Version:        1.0
+
+<details>
+
+  <summary>Changelog:</summary>
+  
+  v1.0 Changelog:
+  * This is the first version of this script posted here
+  
+</details>
+
+Description:
+
+This script allows you to force events to not "lock" into place and stop animating when interacting with them. This is done using event comment notetags, and the force unlock can be done per event page, or for the entire event. Force unlocking an event allows you to ensure that continuous event animations won't be interrupted.
+
+**IMAGES:**
+
+(None right now!)
+
+
+
 ## Gif Player
 **SCRIPT INFO:**
 
