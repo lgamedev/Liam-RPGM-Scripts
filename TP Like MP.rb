@@ -5,7 +5,7 @@ $imported["Liam-TPLikeMP"] = true
 
 # Script:           TP like MP (& extra TP settings)
 # Author:           Liam
-# Version:          1.1.2
+# Version:          1.1.3
 # Description:
 # This script allows you to make TP into a system that works similarly to
 # the MP system. Normally, everything to do with TP assumes that max TP has
@@ -935,6 +935,12 @@ class Game_Battler < Game_BattlerBase
   #--------------------------------------------------------------------------
   alias after_tplmp_notetag_tp_changes item_test
   def item_test(user, item)
+    # if item exists, set it up properly
+    if (item)
+      # update the item's damage formula type
+      item.damage.tplmp_update_damage_formula_type
+    end
+    
     # do initial check just to make sure the target isn't dead
     return false if item.for_dead_friend? != dead?
     
