@@ -164,7 +164,7 @@ This script allows you to play animations once in the center of the screen rathe
 ## TP Like MP and More
 **SCRIPT INFO:**
 
-Current Version:        1.1.3
+Current Version:        1.1.4
 
 <details>
 
@@ -200,6 +200,9 @@ Current Version:        1.1.3
   
   v1.1.3 Changelog:
   * Fixed tp recovery formulas not being set quickly enough to work for item use testing
+  
+  v1.1.4 Changelog:
+  * Fully fixed the typo causing a crash when actor-specific max tp formulas were used
   
 </details>
 
