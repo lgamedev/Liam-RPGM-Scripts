@@ -160,11 +160,10 @@ This script allows you to play animations once in the center of the screen rathe
 (None right now!)
 
 
-
-## TP Like MP and More
+## Play Group Animations In Center
 **SCRIPT INFO:**
 
-Current Version:        1.1.4
+Current Version:        1.0.1
 
 <details>
 
@@ -174,55 +173,41 @@ Current Version:        1.1.4
   * This is the first version of this script posted here
 
   v1.0.1 Changelog:
-  * Fixed TP preservation at begin/end of battler only being switched around in the scripting
-  * Small bugfix relating to Yanfly Battle Engine compatibility and user/target simultaneous tp gain/loss
-
-  v1.0.2 Changelog:
-  * Fixed an issue where I forgot to redefine a method that was used in a different script I made.
-
-  v1.0.3 Changelog:
   * Added discord and github link
-  
-  v1.1 Changelog:
-  * Added the ability to use damage formulas to do tp damage/recovery/draining
-  * Added more script calls for modifying the actor's tp values directly
-  * Split off enemy initial tp from the generic initial tp
-  * Added options for forcing tp bars to display (or not display) as long as the actor's max tp is above 0
-  * Changed item usage conditions so tp gain items that only use notetags to do the tp gain will be able to be used
-  * Fixed not having the yanfly battle engine script causing a crash
-  * Fixed a typo causing a crash when actor-specific max tp formulas were used
-  
-  v1.1.1 Changelog:
-  * Fixed the added script calls from v1.1 so they actually work and don't crash the game
-  
-  v1.1.2 Changelog:
-  * Fixed tp recovery formulas being improperly recognized as tp drain formulas due to a typo
-  
-  v1.1.3 Changelog:
-  * Fixed tp recovery formulas not being set quickly enough to work for item use testing
-  
-  v1.1.4 Changelog:
-  * Fully fixed the typo causing a crash when actor-specific max tp formulas were used
   
 </details>
 
 Description:
 
-This script allows you to make TP into a system that works similarly to the MP system, and basically allows you to customize the TP system as much as you can customize the MP system. Normally, everything to do with TP assumes that max TP has a hard cap of 100. You cannot make TP skills costs over 100, you cannot make TP gain effects of flat numbers, or make TP-loss effects, and you cannot increase or decrease the set max TP. This script changes all of that. There is a large amount of settings including settings for initial TP at the start of battles, settings for TP preservation, settings for changing TP gained by damage, settings for changing how the TCR (TP Charge Rate) parameter works, and more. Additionally, a new parameter is added using notetags, TPCSTR or TP Cost Rate, which affects how much TP skills cost, similar to its MP cost rate equivalent. You can also set up damage formulas for TP (Damage, Recovery, Draining), just like HP and MP by using damage formula notetags.
+This script allows you to play animations once in the center of the screen rather that having it repeat for each target. Before this script, you could set animation's positions to "Screen" to partially solve this problem, however, even if you can't see the animation play multiple times since the animations are overlaid on top of each other, the sounds used in the animation can still be noticably heard playing over each other. This script prevents those animation sounds from playing over each other.
 
 **IMAGES:**
 
-Here is some actors with nonstandard max TP.
+(None right now!)
 
-![TP Like MP Screenshot 1](https://raw.githubusercontent.com/lgamedev/Liam-RPGM-Scripts/main/github%20readme%20graphics/tp%20like%20mp%20nonstandard%20max%20tp.png)
 
-Here is an image containing a skill with a nonstandard TP skill cost of 150.
 
-![TP Like MP Screenshot 2](https://raw.githubusercontent.com/lgamedev/Liam-RPGM-Scripts/main/github%20readme%20graphics/tp%20like%20mp%20nonstandard%20tp%20skill%20costs.png)
+## Battler Sprite Transitions
+**SCRIPT INFO:**
 
-Here is the notetags added in this script to get an idea of some of the things this script allows.
+Current Version:        1.0
 
-![TP Like MP Screenshot 3](https://raw.githubusercontent.com/lgamedev/Liam-RPGM-Scripts/main/github%20readme%20graphics/tp%20like%20mp%20notetags.png)
+<details>
+
+  <summary>Changelog:</summary>
+  
+  v1.0 Changelog:
+  * This is the first version of this script posted here
+  
+</details>
+
+Description:
+
+This script allows you to use 2 kinds of transitions when changing enemy battler sprite images. Notably, you can now change battler sprite images without having to use the Transformation command using script calls. The first type of transition is a fade transition where the old battler sprite image fades out and the new one fades in. The second transition is a battle animation transition where the old battler image is hidden (or not) while a specified battle animation plays and then the new battler image appears at the end of the animation. Both transitions can be used with the Transformation command and the new alternative to the Transformation command. It is also possible to use no transition.
+
+**IMAGES:**
+
+(None right now!)
 
 
 
