@@ -5,7 +5,7 @@ $imported["Liam-TPLikeMP"] = true
 
 # Script:           TP like MP (& extra TP settings)
 # Author:           Liam
-# Version:          1.1.3
+# Version:          1.1.4
 # Description:
 # This script allows you to make TP into a system that works similarly to
 # the MP system. Normally, everything to do with TP assumes that max TP has
@@ -656,7 +656,7 @@ class Game_BattlerBase
         # check if the ACTOR_CUSTOM_MAX_TP_FORMULAS hash has the battler's
         # actorID in it, then use the custom formula for that actor,
         # otherwise, use the default number MAX_TP_FORMULA
-        if (ACTOR_CUSTOM_MAX_TP_FORMULAS.has_key?(actorID))
+        if (TPLMP::ACTOR_CUSTOM_MAX_TP_FORMULAS.has_key?(actorID))
           resultMaxTP = (eval(TPLMP::ACTOR_CUSTOM_MAX_TP_FORMULAS[actorID])).to_i
         else
           resultMaxTP = (eval(TPLMP::MAX_TP_FORMULA)).to_i
