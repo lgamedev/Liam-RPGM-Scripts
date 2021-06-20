@@ -200,6 +200,8 @@ module BST
   # This setting, when set to true, makes all transformations use
   # fade battler sprite transitions.
   FADE_FOR_ALL_TRANSFORM = false
+  
+  # __END OF MODIFIABLE CONSTANTS__
 end
 
 
