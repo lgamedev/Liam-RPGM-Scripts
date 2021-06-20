@@ -116,9 +116,8 @@ $imported["Liam-BattlerSpriteTransitions"] = true
 # when changing to the new battler sprite image.
 #
 #
-# No editable constants for this script.
+# __Modifiable Constants__
 module BST
-  
   # The length (in frames) of the amount of time a battler sprite should take to
   # fade out while undergoing a battler sprite change fade transition.
   # To change this value during gameplay, use the following script call:
