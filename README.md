@@ -355,6 +355,30 @@ This image shows how the mystery HP can be afflicted through a state in battle. 
 
 
 
+
+## State Skill Usability Refresh
+**SCRIPT INFO:**
+Current Version:        1.0
+
+<details>
+
+  <summary>Changelog:</summary>
+  
+  v1.0 Changelog:
+  * This is the first version of this script posted here
+  
+</details>
+
+Description:
+
+This script allows you to prevent enemies/actors from using skills that they would no longer to be able to use when states are applied to them that restrict skill usability. This is done normally with the engine's base script, but this makes sure the moves are correct even in edge-case situations. The difference is, after the skill usability restricting moves are used on a battler with this script, a replacement skill for the now-unusable skill can be used.
+
+**IMAGES:**
+
+(None right now!)
+
+
+
 ## Experience Rubberbanding
 **SCRIPT INFO:**
 
