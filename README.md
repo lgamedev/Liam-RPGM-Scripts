@@ -371,7 +371,7 @@ Current Version:        1.0
 
 Description:
 
-This script allows you to prevent enemies/actors from using skills that they would no longer to be able to use when states are applied to them that restrict skill usability. This is done normally with the engine's base script, but this makes sure the moves are correct even in edge-case situations. The difference is, after the skill usability restricting moves are used on a battler with this script, a replacement skill for the now-unusable skill can be used.
+This script allows you to prevent enemies/actors from using skills that they would no longer to be able to use when states are applied to them that restrict skill usability. This is done normally with the engine's base script, but this makes sure the moves are correct even in edge-case situations. Additionally, after the skill usability restricting moves are used on a battler with this script, a replacement skill for the now-unusable skill can be used.
 
 **IMAGES:**
 
