@@ -67,6 +67,34 @@ This script is made for showing a "gif" using show picture commands. It does not
 
 
 
+## Galv's Region Effects Extras Addon
+**SCRIPT INFO:**
+
+REQUIRES THE "Galv's Region Effects" SCRIPT! OBTAIN AT THIS LINK: https://galvs-scripts.com/galvs-region-effects/
+
+REQUIRES THE "Extra Save Data" SCRIPT!
+
+Current Version:        1.0
+
+<details>
+
+  <summary>Changelog:</summary>
+  
+  v1.0 Changelog:
+  * This is the first version of this script posted here
+  
+</details>
+
+Description:
+
+This script addon allows you to create extra region effect sets that you can change between during gameplay runtime with a script call as well as additional extra features for these extra region effect sets like extra customization of the pitch/volume variance for sound effects. The region effect set from the original script is the default region effect set that is used and can still be accessed. When this default set is active it has the special behaviour of basically turning the extra features of this script addon "off" for that set (namely pitch/volume variance). This means that you should not use the original script's region effect set if you always want to have the additonal features of this addon active. Some maps can have special region effect sets that are used when the player transfers into the map, and when the player is no longer in a special region effect set map the active region effect will change back to the last non-special-map one. Lastly, random region effects can be used which will pull a random effect from a specified list of effects.
+
+**IMAGES:**
+
+(None right now!)
+
+
+
 ## Radial Sound
 **SCRIPT INFO:**
 
