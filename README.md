@@ -576,7 +576,7 @@ This script allows you to save any kind of data (true/false values, numbers, etc
 ## Persistent Data
 **SCRIPT INFO:**
 
-Current Version:        1.2
+Current Version:        1.2.1
 
 <details>
 
@@ -593,6 +593,10 @@ Current Version:        1.2
   * Persistent data used by other scripts is now managed automatically
   * User-defined persistent data is now easy to set up and use
   * Added discord and github link
+  
+  v1.2.1 Changelog:
+  * Fixed issues in the script call methods for user persistent data making the calls not function properly
+  * Fixed issue with clearing out the cached user persistent data values when loading persistent data to due to an error in the programming
   
 </details>
 
