@@ -125,6 +125,40 @@ This script is made for increasing and decreasing the volume of a repeated sound
 
 
 
+## Liam's Himeworks Large Troops Rework
+**SCRIPT INFO:**
+
+THE ORIGINAL SCRIPT WAS MADE BY Himeworks AND CAN BE FOUND AT THIS LINK: https://himeworks.com/2013/03/large-troops/
+
+This rework replaces the original script rather than adding on to it, so use either this rework OR the original script and NOT both.
+
+Additionally, as this script rework uses all of the original source code, Himeworks' license also applies to this rework in addition to my own.
+
+Himeworks' license can be found here: https://himeworks.com/terms-of-use/
+
+REQUIRES THE "Extra Save Data" SCRIPT!
+
+Current Version:        1.0
+
+<details>
+
+  <summary>Changelog:</summary>
+  
+  v1.0 Changelog:
+  * This is the first version of this script posted here
+  
+</details>
+
+Description:
+
+This script rewrite of Himeworks' Large Troops script changes the handling of troop event pages for troops which extend a parent/host troop. This rewrite fixes some existing issues with the original script such as failing to account for particular event commands and the troop event page conditionals. It does this by ensuring the correct enemy troop members are dealt with in extended troop event pages. This script rewrite also makes script calls in extended troop events sourced from other scripts work correctly.
+
+**IMAGES:**
+
+(None right now!)
+
+
+
 ## Random Battle Messages
 **SCRIPT INFO:**
 
