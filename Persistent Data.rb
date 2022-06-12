@@ -5,7 +5,7 @@ $imported["Liam-PersistentData"] = true
 
 # Script:           Persistent Data
 # Author:           Liam
-# Version:          1.2
+# Version:          1.2.1
 # Description:
 # This script allows you to save any kind of data (true/false values, numbers,
 # lists, etc.) across all save files using a generated file stored in a
@@ -142,7 +142,7 @@ module PDATA
   # the old file has already been set up.
   PDATA_OTHER_SCRIPTS_FILENAME = "pVarDataOtherScripts.txt"
   
-  # A list of the data names and their associated inital values that will be
+  # A list of the data names and their associated initial values that will be
   # put into the "normal" persistent data file. These initial values may
   # be numbers, strings of text, true/false values, or even lists of values.
   #
@@ -166,6 +166,7 @@ module PDATA
   #   "testValue5" => false
   # }
   PDATA_STORED_DATA = {
+    "- persist data test switch -" => false
   }
   
   # __END OF MODIFIABLE CONSTANTS__
@@ -228,20 +229,26 @@ module DataManager
   # * accessor as a hash w/ line number as the keys.
   #--------------------------------------------------------------------------
   def self.loadPersistentData(pDataFilename)
+    # Get which type of persistent data is needed based off of the filename
+    persistentDataType = PDATA::PDATA_FILE_TO_ACCESSOR_VAR[pDataFilename]
+    
     # Set the allPersistentData hash to have two hashes in it, one
     # for "normal" persistent data, and one for "other script" persistent data
+    
+    # if nil, setup initial persistent data hashes
     if (@allPersistentData.nil?)
       @allPersistentData = {"persistentData" => {}, "otherScriptsPersistentData" => {}}
+    # otherwise, if hash empty, fill in the hash
     elsif (@allPersistentData.empty?)
       @allPersistentData["persistentData"] = {}
       @allPersistentData["otherScriptsPersistentData"] = {}
+    # otherwise, if the temp hash being dealt with is already present, clear it out
+    elsif (@allPersistentData.has_key?(persistentDataType))
+      @allPersistentData[persistentDataType].clear
+    # otherwise, create the needed temp hash
     else
-      @allPersistentData.clear
-      @allPersistentData = {"persistentData" => {}, "otherScriptsPersistentData" => {}}
+      @allPersistentData[persistentDataType] = {}
     end
-    
-    # Get which type of persistent data is needed based off of the filename
-    persistentDataType = PDATA::PDATA_FILE_TO_ACCESSOR_VAR[pDataFilename]
     
     # if the hash in question does not exist, create it, otherwise clear the hash
     if (!@allPersistentData.has_key?(persistentDataType))
@@ -292,6 +299,7 @@ module DataManager
     pDataType = "persistentData"
     currPDataHash = @allPersistentData[pDataType]
     dataValue = currPDataHash[dataName]
+    
     return dataValue
   end
   
@@ -739,7 +747,7 @@ class Game_Interpreter
   # * A SET OF TEXT.
   #--------------------------------------------------------------------------
 	def setGameVariableP(gameVariableNumber, persistentDataName)
-    $game_variables[gameVariableNumber] = getPersistentDataEv(persistentDataName)
+    $game_variables[gameVariableNumber] = DataManager.getPersistentDataEv(persistentDataName)
   end
   
   #--------------------------------------------------------------------------
@@ -748,7 +756,7 @@ class Game_Interpreter
   # * Value associated w/ the the persistent data name MUST BE 'true' OR 'false'.
   #--------------------------------------------------------------------------
   def setGameSwitchP(gameSwitchNumber, persistentDataName)
-    $game_switches[gameSwitchNumber] = getPersistentDataEv(persistentDataName)
+    $game_switches[gameSwitchNumber] = DataManager.getPersistentDataEv(persistentDataName)
   end
   
   #--------------------------------------------------------------------------
@@ -756,11 +764,10 @@ class Game_Interpreter
   # * to be the value in a game variable
   #--------------------------------------------------------------------------
   def setPVariable(gameVariableNumber, persistentDataName)
-    # set persistent data takes data as a string, so first convert the variable
-    # value to a string
-    stringData = $game_variables[gameVariableNumber].to_s
+    # get the new data from the game variables
+    newData = $game_variables[gameVariableNumber]
     # send the data to the DataManager setPersistentData method
-    DataManager.setPersistentDataEv(persistentDataName, stringData)
+    DataManager.setPersistentDataEv(persistentDataName, newData)
   end
   
   #--------------------------------------------------------------------------
@@ -768,11 +775,10 @@ class Game_Interpreter
   # * to be the value in a game switch
   #--------------------------------------------------------------------------
   def setPSwitch(gameSwitchNumber, persistentDataName)
-    # set persistent data takes data as a string, so first convert the variable
-    # value to a string
-    stringData = $game_switches[gameSwitchNumber].to_s
+    # get the new data from the game switches
+    newData = $game_switches[gameSwitchNumber]
     # send the data to the DataManager setPersistentData method
-    DataManager.setPersistentDataEv(persistentDataName, stringData)
+    DataManager.setPersistentDataEv(persistentDataName, newData)
   end
   
 end
