@@ -298,7 +298,7 @@ Current Version:        1.1.4
   * Fixed an issue relating to the "It also just does the MP and max MP changes in a "better" way now" from v1.1
 
   v1.1.3 Changelog:
-  * Fixed an issue where gun misfiring was causing a crash.
+  * Fixed an issue where gun misfiring was causing a crash
 
   v1.1.4 Changelog:
   * Added discord and github link
@@ -339,11 +339,11 @@ Current Version:        1.1.1
 
   v1.0.1 Changelog:
   * Added an "import section" to the script so other scripts can see if the script is being used
-  * Fixed a bug that causes the game to do a soft hang if you "cancel" a top level skill usage.
+  * Fixed a bug that causes the game to do a soft hang if you "cancel" a top level skill usage
 
   v1.1 Changelog:
   * Fixed a lot of issues where skills with scopes other than "the user" or "one enemy" wouldn't work
-  * Fixed a lot of other critical issues.
+  * Fixed a lot of other critical issues
 
   v1.1.1 Changelog:
   * Added discord and github link
@@ -460,6 +460,15 @@ Current Version:        1.0.2
 
   v1.0.2 Changelog:
   * Added discord and github link
+  
+  v1.1 Changelog:
+  * Fixed critical issues in the script which made it unable to properly function. Due to coding errors, the total xp pool was being modified rather than the xp gained in one instance. The script now correctly increases xp gains.
+  * Made the "Change Level" event command unaffected by experience rubberbanding
+  * Added option to make the "Change EXP" event command be unaffected by experience rubberbanding
+  * Added the option to make reserve/non-active partymembers be unaffected by experience rubberbanding
+  * Simplified the existing script calls for changing the script settings
+  * Fixed various typos and updated the formatting of the script comments
+  * Added compatibility for Yanfly's "Victory Aftermath" script so it displays the correct xp gain amounts
   
 </details>
 
