@@ -773,6 +773,54 @@ In this event you can see that the event is set to "Same as Character" priority 
 
 
 
+## Simple Character Talksounds
+**SCRIPT INFO:**
+
+Current Version:        1.0
+
+<details>
+
+  <summary>Changelog:</summary>
+  
+  v1.0 Changelog:
+  * This is the first version of this script posted here
+  
+</details>
+
+Description:
+
+This script allows you to easily create character talksounds and play them when text message windows display their text. Talksound data is set up in the script settings, and the active talksound is controlled using a designated game variable. There is optional pitch randomisation to vary individual talksound noises. There is also a setting to change how closely together individual talksounds noises are played can be set.
+
+**IMAGES:**
+
+(None right now!)
+
+
+
+## Character Portrait Changes By Variable
+**SCRIPT INFO:**
+
+Current Version:        1.0
+
+<details>
+
+  <summary>Changelog:</summary>
+  
+  v1.0 Changelog:
+  * This is the first version of this script posted here
+  
+</details>
+
+Description:
+
+This script allows you to set up special "base" character portraits for text message windows which can change to other portraits according to the value of game variables paired with the base portraits. Optionally, the in-game menu portraits can change alongside the text message portraits. This allows you to do different outfits for a character, or possibly other things like the current emotional state of the character. The alternate portraits for the "base" portraits are determined using "text markers" in the alternate portrait filenames which are added to the end of the "base" portrait filenames. The "text markers" contain the text unique to each alternate portrait filename which differentiates it from the "base" character portrait filename.
+
+**IMAGES:**
+
+(None right now!)
+
+
+
 ## Fake Show Pictures
 **SCRIPT INFO:**
 
